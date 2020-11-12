@@ -1,4 +1,4 @@
-package aliSms
+package alisms
 
 import (
 	"encoding/json"

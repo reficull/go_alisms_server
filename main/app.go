@@ -5,14 +5,14 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/reficull/go_alisms_server/aliSms"
-	htpserver "github.com/reficull/go_alisms_server/htpServer"
+	alisms "github.com/reficull/go_alisms_server/alisms"
+	htpserver "github.com/reficull/go_alisms_server/htpserver"
 )
 
 func main() {
 	fmt.Printf("hello")
 
-	info := aliSms.SmsInfo{
+	info := alisms.SmsInfo{
 		AccessID:    "LTAI2YjtA8kIpW6k",
 		AccessKEY:   "WWhcX9jcKXsGVkSo8RPQcIQdsaerz3",
 		SmsTemplate: "SMS_160145083",
