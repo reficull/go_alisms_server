@@ -1,9 +1,8 @@
-package alisms
+package AliSMS
 
-import (
+import(
 	"encoding/json"
 	"fmt"
-
 	"github.com/GiterLab/aliyun-sms-go-sdk/dysms"
 	"github.com/tobyzxj/uuid"
 )

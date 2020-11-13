@@ -1,16 +1,12 @@
-package htpserver
+package  HtpServer
 
-import (
+import(
 	"fmt"
 	"log"
 	"net/http"
-
-	//    "os"
-
-	"github.com/reficull/go_alisms_server/aliSms"
+    "AliSMS"
 )
 
-//CommandType command type
 type CommandType int
 
 const (
@@ -23,22 +19,17 @@ const (
 	//SMSCommand ...
 	SMSCommand
 )
-
-// Command struct
 type Command struct {
 	ty        CommandType
 	code      string
 	cell      string
 	replyChan chan string
 }
-
-//Server struct
 type Server struct {
 	Cmds chan<- Command
 }
 
-//StartProcessManager initializer
-func StartProcessManager(initvals map[string]float32, info aliSms.SmsInfo) chan<- Command {
+func StartProcessManager(initvals map[string]float32, info AliSMS.SmsInfo) chan<- Command {
 	counters := make(map[string]float32)
 
 	for k, v := range initvals {
@@ -55,7 +46,7 @@ func StartProcessManager(initvals map[string]float32, info aliSms.SmsInfo) chan<
 				fmt.Printf("%v", info)
 				info.Code = cmd.code
 				info.Cell = cmd.cell
-				ret = aliSms.SendSMS(info)
+				ret = AliSMS.SendSMS(info)
 				//fmt.Printf("ct command logic  s1:%s,s2:%s\n ret:%s",cmd.str1,cmd.str2,ret)
 
 				cmd.replyChan <- ret
@@ -89,21 +80,3 @@ func (s *Server) Sms(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprint(w, reply)
 }
 
-/*
-func main() {
-    server := Server{startProcessManager(map[string]int{"i":0,"j":0})}
-    http.HandleFunc("/get", server.get)
-    http.HandleFunc("/set", server.set)
-    http.HandleFunc("/inc", server.inc)
-    http.HandleFunc("/ct", server.ct)
-
-    portnum := 8000
-    if len(os.Args) > 1 {
-        portnum, _ = strconv.Atoi(os.Args[1])
-
-    }
-    log.Printf("Going to listen on port %d\n", portnum)
-    log.Fatal(http.ListenAndServe("localhost:"+strconv.Itoa(portnum), nil))
-
-}
-*/
